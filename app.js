@@ -166,7 +166,7 @@ function saveTasks() {
 	doneTasks.forEach((task) => {
 		tasks.push(constructTaskObject(task, true));
 	});
-
+	console.log(tasks);
 	localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
@@ -339,7 +339,6 @@ function updateTaskStyles(liElement, taskObj) {
 
 function moveToDone(liElement, taskObj) {
 	taskObj.done = true;
-	saveTasks();
 
 	const nameSpan = liElement.querySelector(".taskName");
 	if (nameSpan) nameSpan.classList.add("line-through");
@@ -353,11 +352,12 @@ function moveToDone(liElement, taskObj) {
 	checkbox.checked = true;
 
 	updateTaskStyles(liElement, taskObj);
+
+	saveTasks();
 }
 
 function moveToTodo(liElement, taskObj) {
 	taskObj.done = false;
-	saveTasks();
 
 	const nameSpan = liElement.querySelector(".taskName");
 	if (nameSpan) nameSpan.classList.remove("line-through");
@@ -372,6 +372,8 @@ function moveToTodo(liElement, taskObj) {
 	checkbox.checked = false;
 
 	updateTaskStyles(liElement, taskObj);
+
+	saveTasks();
 }
 
 function deleteAllTasks() {
@@ -396,7 +398,7 @@ function editTask(liElement, taskObj) {
 	textInput.className = "text-input";
 
 	const descriptionTextarea = document.createElement("textarea");
-	descriptionTextarea.value = taskObj.description || ""; // Ensure this is set correctly
+	descriptionTextarea.value = taskObj.description || "";
 	descriptionTextarea.className = "text-description";
 
 	const newPrioritySelect = document.createElement("select");
@@ -437,11 +439,10 @@ function editTask(liElement, taskObj) {
 	liElement.appendChild(editForm);
 
 	saveButton.addEventListener("click", () => {
-		console.log("Description before save:", descriptionTextarea.value); // Debugging line
+		console.log("Description before save:", descriptionTextarea.value);
 		taskObj.text = textInput.value.trim() || taskObj.text;
-		taskObj.description =
-			descriptionTextarea.value.trim() || taskObj.description;
-		console.log("New Description:", taskObj.description); // Debugging line
+		taskObj.description = descriptionTextarea.value.trim();
+		console.log("New Description:", taskObj.description);
 		taskObj.priority = newPrioritySelect.value;
 		taskObj.date = dateInput.value;
 
@@ -462,6 +463,14 @@ function editTask(liElement, taskObj) {
 			nameSpan.textContent = taskObj.text;
 		}
 
+		const descRow = liElement.querySelector(".desc-row");
+		if (descRow) {
+			const existingDescSpan = descRow.querySelector("span");
+			if (existingDescSpan) {
+				existingDescSpan.remove();
+			}
+		}
+
 		let descriptionSpan = liElement.querySelector(".taskDescription");
 		if (!descriptionSpan) {
 			descriptionSpan = document.createElement("span");
@@ -471,6 +480,8 @@ function editTask(liElement, taskObj) {
 		descriptionSpan.textContent = taskObj.description;
 
 		updateTaskStyles(liElement, taskObj);
+
+		saveTasks();
 	});
 
 	cancelButton.addEventListener("click", () => {
@@ -479,12 +490,14 @@ function editTask(liElement, taskObj) {
 			div.style.display = "";
 		});
 	});
+
+	saveTasks();
 }
 
 function formatDate(dateStr) {
-	if (!dateStr) return "";
+	if (!dateStr) return "Invalid Date";
 	const dateObj = new Date(dateStr);
-	if (isNaN(dateObj.getTime())) return "";
+	if (isNaN(dateObj.getTime())) return "Invalid Date"; // Menangani tanggal yang tidak valid
 
 	return dateObj.toLocaleDateString("en-GB", {
 		weekday: "long",
