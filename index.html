@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>OrganiTask</title>
+		<link rel="icon" href="/assets/check-circle.svg" type="image/svg" />
+
+		<!-- My Styles -->
+		<link rel="stylesheet" href="styles.css" />
+		<!-- Feather Icons -->
+		<script src="https://unpkg.com/feather-icons"></script>
+	</head>
+	<body>
+		<!-- Navbar start -->
+		<nav class="navbar">
+			<div class="navbar-nav">
+				<!-- Hamburger bar buat naruh sidebar nanti -->
+				<div class="hamburger-menu" id="hamburger">
+					<img src="/assets/icons8-menu-120.png" alt="menu" />
+				</div>
+				<div class="logo-wrapper">
+					<img src="/assets/check-circle.png" alt="check-circle" />
+					<a href="#">
+						<p class="logo-text">Organi<span>Task</span></p>
+					</a>
+				</div>
+			</div>
+			<!-- Avatar Dropdown -->
+			<div class="navbar-avatar">
+				<img src="/assets/date.png" alt="date" />
+				<div class="date-container" id="date-display"></div>
+				<div class="user-information">
+					<img src="/assets/user.png" alt="avatar-profile" class="avatar-img" />
+					<p>Edi Baskoro - Backend Developer</p>
+				</div>
+				<div class="arrow-down">
+					<img src="./assets/Vector-arrow.png" alt="arrow-vector" />
+				</div>
+				<!-- Dropdown Menu -->
+				<div class="dropdown-menu">
+					<ul>
+						<li>
+							<img src="/assets/settings.png" alt="settings" />
+							<a href="#ubah-pengaturan">Setting</a>
+						</li>
+						<li>
+							<img src="/assets/logout.png" alt="logout" />
+							<a href="#keluar">Log Out</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- Navbar end -->
+
+		<div class="container">
+			<!-- Sidebar start -->
+			<div class="sidebar" id="sidebar">
+				<div class="sidebar-title">
+					<p>List</p>
+					<div class="arrow-wrapper" onclick="toggleArrow()">
+						<img
+							src="./assets/icons8-arrow-down-90.png"
+							alt="down"
+							id="down"
+							class="down" />
+						<img
+							src="./assets/icons8-arrow-up-90.png"
+							alt="up"
+							id="up"
+							class="up-hidden" />
+					</div>
+				</div>
+				<ul class="sidebar-list" id="sidebar-list">
+					<li>
+						<label class="checkboxList">
+							<input
+								type="checkbox"
+								name="option1"
+								value="option1"
+								class="checkbox-sidebar" /><span id="tugas">Tugas Saya</span>
+						</label>
+					</li>
+				</ul>
+				<div class="sidebar-add" id="sidebar-add">
+					<img src="/assets/icons8-add-60.png" alt="add" />
+					<p>Create new list</p>
+				</div>
+			</div>
+
+			<!-- Popup Modal -->
+			<div id="popupModal" class="modal">
+				<div class="modal-content">
+					<h3>Create new list</h3>
+					<input type="text" id="listName" placeholder="Masukkan nama" />
+					<div class="modal-buttons">
+						<button class="cancel" id="cancel">Cancel</button>
+						<button class="done" id="done">Done</button>
+					</div>
+				</div>
+			</div>
+			<!-- Sidebar end -->
+
+			<!-- Main Content -->
+			<div class="mainContent">
+				<div class="mainContent-wrapper">
+					<div class="task-header">
+						<div class="task-title">
+							<p>My Tasks</p>
+							<div id="deleteAllButton">
+								<img src="/assets/icons8-delete-90.png" alt="deleteAllButton" />
+							</div>
+						</div>
+						<div class="add-task-title">
+							<img src="/assets/icons8-add-list-60.png" alt="add-task" />
+							<p>Add New Task</p>
+						</div>
+
+						<div class="addTask-wrapper">
+							<div class="form-container">
+								<input
+									id="taskInput"
+									type="text"
+									placeholder="Judul Tugas"
+									class="input-field" />
+
+								<textarea
+									id="taskDescription"
+									placeholder="Deskripsi"
+									class="input-field"></textarea>
+
+								<select id="prioritySelect" class="input-priority">
+									<option value="Low">Prioritas Rendah</option>
+									<option value="Medium">Prioritas Sedang</option>
+									<option value="High">Prioritas Tinggi</option>
+								</select>
+
+								<input id="dateInput" type="date" class="input-field" />
+							</div>
+							<div class="add-button">
+								<button id="addButton" class="custom-button">Add</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Task List -->
+					<div class="task-list-container">
+						<div class="task-list" id="overdueList">
+							<div class="task-list-header">
+								<div class="taskList-arrow" onclick="toggleArrowTask(this)">
+									<img
+										src="/assets/icons8-arrow-right-60.png"
+										alt="right"
+										class="right" />
+									<img
+										src="./assets/icons8-arrow-down-90.png"
+										alt="down"
+										class="down-hidden" />
+								</div>
+								<p>Overdue</p>
+							</div>
+						</div>
+
+						<div class="task-list" id="todoList">
+							<div class="task-list-header">
+								<div class="taskList-arrow" onclick="toggleArrowTask(this)">
+									<img
+										src="/assets/icons8-arrow-right-60.png"
+										alt="right"
+										class="right" />
+									<img
+										src="./assets/icons8-arrow-down-90.png"
+										alt="down"
+										class="down-hidden" />
+								</div>
+								<p>To-do</p>
+							</div>
+						</div>
+
+						<div class="task-list" id="doneList">
+							<div class="task-list-header">
+								<div class="taskList-arrow" onclick="toggleArrowTask(this)">
+									<img
+										src="/assets/icons8-arrow-right-60.png"
+										alt="right"
+										class="right" />
+									<img
+										src="./assets/icons8-arrow-down-90.png"
+										alt="down"
+										class="down-hidden" />
+								</div>
+								<p>Done</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- File Js -->
+		<script src="app.js"></script>
+		<!-- Feather Icons -->
+		<script>
+			feather.replace();
+		</script>
+	</body>
+</html>
