@@ -227,7 +227,6 @@
 }
 
 .arrow-wrapper img,
-#deleteAllButton img,
 .add-task-title img,
 .taskList-arrow img {
 	padding: 5px;
@@ -237,7 +236,6 @@
 }
 
 .arrow-wrapper:hover,
-#deleteAllButton img:hover,
 .add-task-title img:hover,
 .taskList-arrow img:hover {
 	background-color: rgb(200, 205, 253, 0.25);
@@ -455,12 +453,29 @@ input:hover {
 	padding: px;
 }
 
+#deleteAllButton {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+	padding: 8px;
+	background-color: rgb(124, 91, 242);
+	border-radius: 5px;
+	box-shadow: black;
+}
+
+#deleteAllButton span{
+	cursor: pointer;
+	color: white;
+}
+
 .add-task-title {
 	display: flex;
 	align-items: center;
 	cursor: pointer;
 	padding: 2px;
 	gap: 8px;
+	margin-top: 10PX;
 }
 
 .add-task-title:hover {
@@ -476,12 +491,11 @@ input:hover {
 
 /* Container Form */
 .form-container{
-	width: 100%;
 	max-width: 400px;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin: 8px 0px;
+	padding: 10px;
 }
 .edit-form  {
 	width: 100%;
@@ -528,10 +542,10 @@ input:hover {
 	border-radius: 4px;
 	width: 75px;
 	transition: background-color 0.3s ease;
-	margin: 8px 0px;
+	margin-bottom: 8px;
 }
 
-.custom-button:hover {
+.custom-button:hover, #deleteAllButton:hover {
 	background-color: rgb(200, 205, 251);
 }
 
@@ -681,6 +695,7 @@ input:hover {
 	font-style: italic;
 	text-transform: capitalize
 }
+	
 
 
 	  

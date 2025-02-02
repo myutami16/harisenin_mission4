@@ -117,10 +117,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	addTaskWrapper.style.display = "none";
 
-	if (localStorage.getItem("isAddTaskVisible") === "true") {
-		addTaskWrapper.style.display = "block";
-	}
-
 	taskTitle.addEventListener("click", function () {
 		if (
 			addTaskWrapper.style.display === "none" ||
@@ -166,7 +162,6 @@ function saveTasks() {
 	doneTasks.forEach((task) => {
 		tasks.push(constructTaskObject(task, true));
 	});
-	console.log(tasks);
 	localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
@@ -219,11 +214,13 @@ function addTask() {
 		return;
 	}
 
+	const formattedDate = formatDate(dateValue);
+
 	const newTaskItem = {
 		text: taskText,
 		description: descriptionText,
 		priority: priority,
-		date: dateValue,
+		date: formattedDate,
 		done: false,
 	};
 
@@ -274,7 +271,7 @@ function renderTask(taskObj) {
 
 	const dateRow = document.createElement("div");
 	dateRow.className = "date-row";
-	dateRow.textContent = `(${taskObj.priority} || ${formatDate(taskObj.date)})`;
+	dateRow.textContent = `(${taskObj.priority} || ${taskObj.date})`; // Use the formatted date here
 
 	const bottomRow = document.createElement("div");
 	bottomRow.className = "bottom-row";
@@ -481,6 +478,13 @@ function editTask(liElement, taskObj) {
 
 		updateTaskStyles(liElement, taskObj);
 
+		const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+		const taskIndex = tasks.findIndex((task) => task.id === taskObj.id);
+		if (taskIndex !== -1) {
+			tasks[taskIndex] = taskObj;
+			localStorage.setItem("tasks", JSON.stringify(tasks));
+		}
+
 		saveTasks();
 	});
 
@@ -490,14 +494,12 @@ function editTask(liElement, taskObj) {
 			div.style.display = "";
 		});
 	});
-
-	saveTasks();
 }
 
 function formatDate(dateStr) {
 	if (!dateStr) return "Invalid Date";
 	const dateObj = new Date(dateStr);
-	if (isNaN(dateObj.getTime())) return "Invalid Date"; // Menangani tanggal yang tidak valid
+	if (isNaN(dateObj.getTime())) return "Invalid Date";
 
 	return dateObj.toLocaleDateString("en-GB", {
 		weekday: "long",
