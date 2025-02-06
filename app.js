@@ -59,6 +59,20 @@ function toggleArrow() {
 	}
 }
 
+// Checkbox list
+document.addEventListener("DOMContentLoaded", function () {
+	const checkboxSidebar = document.querySelector(".checkbox-sidebar");
+	const mainContentWrapper = document.getElementById("mainContent-wrapper");
+
+	// Atur tampilan awal berdasarkan status checkbox
+	mainContentWrapper.style.display = checkboxSidebar.checked ? "block" : "none";
+
+	// Tambahkan event listener untuk perubahan status checkbox
+	checkboxSidebar.addEventListener("change", function () {
+		mainContentWrapper.style.display = this.checked ? "block" : "none";
+	});
+});
+
 // Arrow Task-List wrapper
 function toggleArrowTask(event) {
 	let taskHeader = event.currentTarget;
@@ -165,7 +179,6 @@ if (doneButton) {
 			listNameInput.value = "";
 			modal.style.display = "none";
 
-			// Tambahkan konten baru ke mainContent
 			const newMainContent = document.createElement("div");
 			newMainContent.className = "mainContent-wrapper";
 			newMainContent.id = uniqueId;
@@ -264,7 +277,6 @@ function attachCheckboxEvent(checkbox) {
 }
 
 // Todo List yang menyimpan ke Localstorage
-
 const taskInput = document.getElementById("taskInput");
 const taskDescription = document.getElementById("taskDescription");
 const prioritySelect = document.getElementById("prioritySelect");
