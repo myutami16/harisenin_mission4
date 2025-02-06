@@ -15,7 +15,6 @@
 		<!-- Navbar start -->
 		<nav class="navbar">
 			<div class="navbar-nav">
-				<!-- Hamburger bar buat naruh sidebar nanti -->
 				<div class="hamburger-menu" id="hamburger">
 					<img src="/assets/icons8-menu-120.png" alt="menu" />
 				</div>
@@ -74,13 +73,14 @@
 				</div>
 				<ul class="sidebar-list" id="sidebar-list">
 					<li>
-						<label class="checkboxList">
+						<div class="checkboxList">
 							<input
 								type="checkbox"
 								name="option1"
 								value="option1"
-								class="checkbox-sidebar" /><span id="tugas">Tugas Saya</span>
-						</label>
+								class="checkbox-sidebar"
+								checked /><span id="tugas">Tugas Saya</span>
+						</div>
 					</li>
 				</ul>
 				<div class="sidebar-add" id="sidebar-add">
@@ -104,7 +104,7 @@
 
 			<!-- Main Content -->
 			<div class="mainContent">
-				<div class="mainContent-wrapper">
+				<div class="mainContent-wrapper" id="mainContent-wrapper">
 					<div class="task-header">
 						<div class="task-title">
 							<p>My Tasks</p>
@@ -159,6 +159,9 @@
 										class="down-hidden" />
 								</div>
 								<p>To-do</p>
+								<ul id="taskList"></ul>
+
+								</ul>
 							</div>
 						</div>
 

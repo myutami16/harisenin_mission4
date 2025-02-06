@@ -11,6 +11,7 @@
 	min-width: 100vw;
 }
 
+
 /* Navbar */
 .navbar {
 	display: flex;
@@ -186,7 +187,7 @@
 }
 
 .sidebar.active {
-	left: 0; /* Sidebar muncul */
+	left: 0; 
 }
 
 .sidebar-list {
@@ -346,7 +347,7 @@
 }
 
 #popupModal {
-	display: none; /* Menyembunyikan modal pada awalnya */
+	display: none; 
 }
 
 /* Kotak Popup */
@@ -368,11 +369,11 @@
 }
 
 input:focus {
-	border-bottom: 3px solid rgb(76, 41, 131); /* Ubah border saat input diklik */
-	outline: none; /* Hilangkan outline bawaan browser */
-	box-shadow: 0 0 5px rgba(76, 41, 131, 0.5); /* Tambahkan efek glow */
-	background-color: rgba(125, 133, 220, 0.5); /* Warna latar saat diklik */
-	color: #333; /* Warna teks */
+	border-bottom: 3px solid rgb(76, 41, 131); 
+	outline: none; 
+	box-shadow: 0 0 5px rgba(76, 41, 131, 0.5); 
+	background-color: rgba(125, 133, 220, 0.5); 
+	color: #333; 
 }
 
 input:hover {
@@ -402,11 +403,17 @@ input:hover {
 /* Main Content */
 .mainContent {
 	position: absolute;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-start;
+	gap: 10px;
 	top: 60px;
 	left: 0;
 	background-color: rgb(36, 38, 61);
 	min-width: 100vw;
 	height: calc(100vh - 60px);
+	overflow-y: auto;
 	transition: margin-left 0.3s ease;
 	z-index: 1;
 }
@@ -460,8 +467,8 @@ input:hover {
 	cursor: pointer;
 	padding: 8px;
 	background-color: rgb(124, 91, 242);
-	border-radius: 5px;
-	box-shadow: black;
+	border-radius: 4px;
+	transition: background-color 0.3s ease;
 }
 
 #deleteAllButton span{
@@ -536,7 +543,7 @@ input:hover {
 }
 
 .custom-button {
-	background-color: rgb(124, 91, 242);
+	background-color:rgb(124, 91, 242);
 	color: white;
 	padding: 8px 16px;
 	border-radius: 4px;
@@ -545,7 +552,7 @@ input:hover {
 	margin-bottom: 8px;
 }
 
-.custom-button:hover, #deleteAllButton:hover {
+.custom-button:hover, #deleteAllButton:hover, .delete-button:hover, .edit-button:hover, .save-button:hover {
 	background-color: rgb(200, 205, 251);
 }
 
@@ -607,43 +614,25 @@ input:hover {
 }
 
 .delete-button{
-	background-color: #f43f5e; /* rose-500 */
-    color: #ffffff; /* white */
-    padding: 0.25rem 0.75rem; /* py-1 (4px) dan px-3 (12px) */
-    border-radius: 0.25rem; /* rounded (4px) */
+	background-color: rgb(125, 135, 241); 
+    color: #ffffff; 
+    padding: 0.25rem 0.75rem; 
+    border-radius: 0.25rem; 
     transition: background-color 0.2s ease-in-out;
-}
-
-.delete-button:hover {
-    background-color: #e11d48; /* rose-600 */
+	cursor: pointer;
 }
 
 .edit-button{
-	background-color: #f97316; /* orange-500 */
-    color: #ffffff; /* white */
-    padding: 0.25rem 0.75rem; /* py-1 (4px) dan px-3 (12px) */
-    border-radius: 0.25rem; /* rounded (4px) */
+	background-color: rgb(125, 135, 241); 
+    color: #ffffff; 
+    padding: 0.25rem 0.75rem; 
+    border-radius: 0.25rem; 
     transition: background-color 0.2s ease-in-out;
-}
-
-.edit-button:hover {
-    background-color: #ea580c; /* orange-600 */
-}
-
-.high-priority {
-    background-color: #fca5a5; /* bg-red-300 */
-}
-
-.medium-priority {
-    background-color: #fde047; /* bg-yellow-300 */
-}
-
-.low-priority {
-    background-color: #86efac; /* bg-green-300 */
+	cursor: pointer;
 }
 
 .completed-task {
-    background-color: #d1fae5; /* bg-green-100 */
+    background-color: rgb(202, 204, 255); 
 }
 
 
@@ -653,7 +642,7 @@ input:hover {
 }
 
 .save-button {
-    background-color: #3b82f6;
+    background-color:rgb(127, 135, 239);
     color: white; 
     padding-left: 16px; 
     padding-right: 16px; 
@@ -661,10 +650,7 @@ input:hover {
     padding-bottom: 8px; 
     border-radius: 0.375rem; 
     transition: background-color 0.3s ease; 
-}
-
-.save-button:hover {
-    background-color: #2563eb; 
+	cursor: pointer;
 }
 
 .cancel-button {
@@ -675,6 +661,8 @@ input:hover {
     padding-bottom: 8px; 
     border-radius: 0.375rem;
     transition: background-color 0.3s ease;
+	cursor: pointer;
+
 }
 
 .cancel-button:hover {
@@ -691,13 +679,34 @@ input:hover {
 	text-transform: capitalize
 }
 
-.desc-row span{
-	font-style: italic;
-	text-transform: capitalize
+.top-row{
+	display: flex;
+	justify-content: space-between;
 }
-	
 
-.overdue-indicator
+
+.desc-row{
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+	color: black;
+}
+
+.desc-row span {
+	font-style: italic;
+	text-transform: capitalize;
+	max-height: 3em;
+	overflow-y: auto; 
+	display: block; 
+}
+
+.overdue-indicator{
+	background-color: red;
+	color: white;
+	padding: 0.25rem 0.5rem;
+	border-radius: 0.25rem;
+}
+  
+
 
 
 	  
